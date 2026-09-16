@@ -68,21 +68,21 @@ export default function LandingPage() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             <div className="aspect-[3/4] overflow-hidden rounded-2xl bg-neutral-200 dark:bg-neutral-800 group">
               <img
-                src="https://images.unsplash.com/photo-1523381210434-271e8be11523?q=80&w=2070&auto=format&fit=crop"
+                src="/images/awake-model.jpg"
                 alt="Awake NY Aesthetic 1"
                 className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 grayscale hover:grayscale-0"
               />
             </div>
             <div className="aspect-[3/4] overflow-hidden rounded-2xl bg-neutral-200 dark:bg-neutral-800 group">
               <img
-                src="https://images.unsplash.com/photo-1550684848-86a5e7a82777?q=80&w=2070&auto=format&fit=crop"
+                src="/images/awake-flag.jpg"
                 alt="Awake NY Aesthetic 2"
                 className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 grayscale hover:grayscale-0"
               />
             </div>
             <div className="aspect-[3/4] overflow-hidden rounded-2xl bg-neutral-200 dark:bg-neutral-800 group">
               <img
-                src="https://images.unsplash.com/photo-1529139516214-6782f4767a66?q=80&w=2070&auto=format&fit=crop"
+                src="/images/awake-hats.jpg"
                 alt="Awake NY Aesthetic 3"
                 className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 grayscale hover:grayscale-0"
               />
