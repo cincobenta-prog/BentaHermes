@@ -54,7 +54,7 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* Awake NY Section - Imagery Gallery */}
+      {/* Awake NY Section - Imagery Gallery (Update: Force redeploy) */}
       <section className="py-24 px-4 bg-neutral-50 dark:bg-neutral-900">
         <div className="max-w-7xl mx-auto space-y-16">
           <div className="text-center space-y-4">
