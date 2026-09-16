@@ -68,21 +68,21 @@ export default function LandingPage() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             <div className="aspect-[3/4] overflow-hidden rounded-2xl bg-neutral-200 dark:bg-neutral-800 group">
               <img
-                src="https://images.unsplash.com/photo-1552374196-1ab26e973748?q=80&w=1974&auto=format&fit=crop"
+                src="https://images.unsplash.com/photo-1514525253361-bee873830274?q=80&w=1974&auto=format&fit=crop"
                 alt="Awake NY Aesthetic 1"
                 className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 grayscale hover:grayscale-0"
               />
             </div>
             <div className="aspect-[3/4] overflow-hidden rounded-2xl bg-neutral-200 dark:bg-neutral-800 group">
               <img
-                src="https://images.unsplash.com/photo-1539109136881-3bbb8710947d?q=80&w=1974&auto=format&fit=crop"
+                src="https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?q=80&w=2070&auto=format&fit=crop"
                 alt="Awake NY Aesthetic 2"
                 className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 grayscale hover:grayscale-0"
               />
             </div>
             <div className="aspect-[3/4] overflow-hidden rounded-2xl bg-neutral-200 dark:bg-neutral-800 group">
               <img
-                src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?q=80&w=2070&auto=format&fit=crop"
+                src="https://images.unsplash.com/photo-1534030347209-467a5b0ad360?q=80&w=2070&auto=format&fit=crop"
                 alt="Awake NY Aesthetic 3"
                 className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 grayscale hover:grayscale-0"
               />
