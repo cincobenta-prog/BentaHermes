@@ -3,23 +3,8 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
-}
-
-enum OrderStatus {
-  DRAFT
-  PENDING_INTERNAL_APPROVAL // For late submissions
-  AWAITING_CLIENT_APPROVAL
-  APPROVED
-  PRINT_READY
-  DELIVERED
-}
-
-enum TemplateCategory {
-  FUNERAL_PROGRAM
-  PRAYER_CARD
-  THANK_YOU_CARD
+  provider = "sqlite"
+  url      = "file:./dev.db"
 }
 
 model User {
@@ -33,9 +18,9 @@ model Template {
   id               String           @id @default(uuid())
   canvaTemplateId  String           @unique
   name             String
-  category         TemplateCategory
+  category         String           // 'FUNERAL_PROGRAM', 'PRAYER_CARD', 'THANK_YOU_CARD'
   dimensions       String           // e.g., "8.5x11"
-  requiredFields   Json             // List of keys: ["deceased_name", "obituary", "date_of_birth"]
+  requiredFields   String           // JSON string: ["deceased_name", "obituary", "date_of_birth"]
   orders           Order[]
 }
 
@@ -44,12 +29,12 @@ model Order {
   clientId         String
   clientEmail      String
   dueDate          DateTime
-  status           OrderStatus  @default(DRAFT)
+  status           String      @default("DRAFT") // 'DRAFT', 'PENDING_INTERNAL_APPROVAL', 'AWAITING_CLIENT_APPROVAL', 'APPROVED', 'PRINT_READY', 'DELIVERED'
   templateId       String
   template         Template    @relation(fields: [templateId], references: [id])
   staffId          String
   staff            User        @relation(fields: [staffId], references: [id])
-  data             Json         // The extracted/entered values for the template
+  data             String      // JSON string of extracted/entered values
   proofUrl         String?
   finalPdfUrl      String?
   isLate           Boolean      @default(false)
@@ -63,4 +48,14 @@ model ApprovalLog {
   action    String   // 'CLIENT_APPROVED', 'ADMIN_OVERRIDE'
   timestamp DateTime @default(now())
   userId    String?   // ID of the staff/admin who took action
+}
+
+model Appointment {
+  id           String   @id @default(uuid())
+  guestName    String
+  companyName  String
+  guestEmail   String
+  startTime    DateTime
+  endTime      DateTime
+  createdAt    DateTime @default(now())
 }
