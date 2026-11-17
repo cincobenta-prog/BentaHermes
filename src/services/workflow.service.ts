@@ -1,6 +1,26 @@
-import { PrismaClient, OrderStatus } from '@prisma/client';
+import { PrismaClient } from '@prisma/client';
 
 const prisma = new PrismaClient();
+
+// Status values stored as strings after the schema moved off the Postgres enum.
+export const OrderStatus = {
+  DRAFT: 'DRAFT',
+  PENDING_INTERNAL_APPROVAL: 'PENDING_INTERNAL_APPROVAL',
+  AWAITING_CLIENT_APPROVAL: 'AWAITING_CLIENT_APPROVAL',
+  APPROVED: 'APPROVED',
+  PRINT_READY: 'PRINT_READY',
+  DELIVERED: 'DELIVERED',
+} as const;
+
+export type OrderStatus = (typeof OrderStatus)[keyof typeof OrderStatus];
+
+function asOrderStatus(status: string): OrderStatus {
+  const known = Object.values(OrderStatus) as string[];
+  if (!known.includes(status)) {
+    throw new Error(`Unknown order status: ${status}`);
+  }
+  return status as OrderStatus;
+}
 
 export class WorkflowService {
   /**
@@ -34,7 +54,8 @@ export class WorkflowService {
       [OrderStatus.DELIVERED]: [],
     };
 
-    if (!validTransitions[order.status].includes(newStatus)) {
+    const currentStatus = asOrderStatus(order.status);
+    if (!validTransitions[currentStatus].includes(newStatus)) {
       throw new Error(`Invalid status transition from ${order.status} to ${newStatus}`);
     }
 

@@ -56,14 +56,14 @@ export class CanvaService {
             name: template.name,
             category: template.category,
             dimensions: template.dimensions,
-            requiredFields: template.requiredFields,
+            requiredFields: JSON.stringify(template.requiredFields),
           },
           create: {
             canvaTemplateId: template.id,
             name: template.name,
             category: template.category,
             dimensions: template.dimensions,
-            requiredFields: template.requiredFields,
+            requiredFields: JSON.stringify(template.requiredFields),
           },
         });
       }
