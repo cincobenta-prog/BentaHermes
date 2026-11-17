@@ -1,6 +1,19 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { aiService } from '@/services/ai.service';
-import { prisma } from '@/lib/prisma'; // I'll need to create this prisma helper
+import { prisma } from '@/lib/prisma';
+
+function requiredFieldNames(value: string): string[] {
+  let parsed: unknown;
+  try {
+    parsed = JSON.parse(value);
+  } catch {
+    throw new Error('Template requiredFields is not valid JSON');
+  }
+  if (!Array.isArray(parsed) || !parsed.every((field) => typeof field === 'string')) {
+    throw new Error('Template requiredFields must be a JSON array of strings');
+  }
+  return parsed;
+}
 
 export async function POST(req: NextRequest) {
   try {
@@ -19,7 +32,7 @@ export async function POST(req: NextRequest) {
 
     const buffer = Buffer.from(await file.arrayBuffer());
     const rawText = await aiService.extractTextFromDocx(buffer);
-    const structuredData = await aiService.mapTextToTemplate(rawText, template.requiredFields as string[]);
+    const structuredData = await aiService.mapTextToTemplate(rawText, requiredFieldNames(template.requiredFields));
 
     return NextResponse.json(structuredData);
   } catch (error: any) {

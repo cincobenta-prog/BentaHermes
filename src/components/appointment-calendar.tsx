@@ -16,10 +16,12 @@ const PFW_DATES = [
   new Date(2027, 0, 25),
 ];
 
+type TimeSlot = { start: Date; end: Date };
+
 export default function AppointmentCalendar() {
   const [selectedDate, setSelectedDate] = useState(PFW_DATES[0]);
   const [selectedDuration, setSelectedDuration] = useState(30);
-  const [bookedSlots, setBookedSlots] = useState([]);
+  const [bookedSlots, setBookedSlots] = useState<TimeSlot[]>([]);
   const [loading, setLoading] = useState(true);
   const [booking, setBooking] = useState<{ start: Date; end: Date } | null>(null);
   const [showForm, setShowForm] = useState(false);
@@ -33,7 +35,7 @@ export default function AppointmentCalendar() {
   async function fetchSlots() {
     setLoading(true);
     try {
-      const response = await fetch(\`/api/appointments?date=\${selectedDate.toISOString()}\`);
+      const response = await fetch(`/api/appointments?date=${selectedDate.toISOString()}`);
       const data = await response.json();
       if (Array.isArray(data)) {
         setBookedSlots(data.map(s => ({
@@ -49,7 +51,7 @@ export default function AppointmentCalendar() {
   }
 
   const generateSlots = () => {
-    const slots = [];
+    const slots: TimeSlot[] = [];
     let current = setMinutes(setHours(startOfDay(selectedDate), OPERATING_HOURS.start), 0);
     const endOfDay = setHours(startOfDay(selectedDate), OPERATING_HOURS.end);
 
